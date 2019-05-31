@@ -1,0 +1,10 @@
+.btn-letter {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    width: 30px;
+    font-weight: bold;
+}
+
+.btn-letter:last-child {
+    margin-right: 0;
+}
