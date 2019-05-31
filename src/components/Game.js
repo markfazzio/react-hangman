@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import classnames from 'classnames';
+import { randomWord } from '../utils/randomWord';
 import Header from './Header';
 import StickMan from "./StickMan";
 import Word from './Word';
@@ -26,7 +28,7 @@ class Game extends Component {
       this.state = {
           numWrong: 0,
           guessed: new Set(),
-          answer: "apple"
+          answer: randomWord()
       };
   }
 
@@ -58,13 +60,60 @@ class Game extends Component {
       ));
   }
 
-  render() {
+  generateGameOver(isWinner) {
 
-    const { numWrong } = this.state;
+    const alertClasses = classnames({
+      'alert' : true,
+      'alert-danger' : !isWinner,
+      'alert-success' : isWinner
+    });
+
+    const resultMsg = isWinner ? 'YOU WIN!' : 'YOU LOSE :(';
 
     return (
+      <div className={alertClasses} role="alert">
+        <strong>{resultMsg}</strong>
+      </div>
+    );
+  }
+
+  reset = () => {
+    this.setState({
+      numWrong : 0,
+      guessed : new Set(),
+      answer : randomWord()
+    });
+  }
+
+  renderGameState(gameOver, isWinner) {
+
+    let gameState = this.generateButtons();
+
+    if (gameOver || isWinner) {
+      if (isWinner) {
+        gameState = this.generateGameOver(true);
+      } else {
+        gameState = this.generateGameOver(false);
+      }
+    }
+
+    return gameState;
+  }
+
+  render() {
+
+    const { numWrong, answer } = this.state;
+    const { maxWrong } = this.props;
+    const isWinner = this.guessedWord().join("") === answer;
+    const gameOver = numWrong >= maxWrong;
+    
+    return (
       <div className="game">
-        <Header numWrong={numWrong} />
+        <Header 
+          numWrong={numWrong}
+          maxWrong={maxWrong}
+          reset={this.reset}
+        />
         <div className="game__container container">
           <div className="row">
             <div className="col-sm-12">
@@ -73,9 +122,13 @@ class Game extends Component {
                     <p>Guess a letter!</p>
                 </div>
                 <StickMan numWrong={numWrong} />
-                <Word guessedWord={this.guessedWord()} />
-                <div className="keyboard">
-                    {this.generateButtons()}
+                <Word 
+                  gameOver={gameOver}
+                  isWinner={isWinner}
+                  guessedWord={gameOver ? answer : this.guessedWord()}   
+                />
+                <div className="board">
+                  {this.renderGameState(gameOver, isWinner)}
                 </div>
             </div>
           </div>

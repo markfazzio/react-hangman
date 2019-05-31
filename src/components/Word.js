@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 
 import './Word.css';
 
 class Word extends Component {
     render() {
 
-        const { guessedWord } = this.props;
+        const {
+            guessedWord,
+            gameOver,
+            isWinner
+        } = this.props;
+
+        const wordClassNames = classnames({
+            'word' : true,
+            'word--complete' : gameOver || isWinner
+        });
 
         return (
-            <div className="word">
+            <div className={wordClassNames}>
                 { guessedWord }
             </div>
         )

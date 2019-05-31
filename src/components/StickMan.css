@@ -2,15 +2,21 @@
   position: relative;
   border-bottom: 2px solid #000;
   margin: 20px 0;
+  background-image: url('../images/hangman-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: -60px -170px;
+  padding: 20px;
 }
 
 .pole {
   border-left: 2px solid black;
   border-top: 2px solid black;
-  height: 100%;
+  height: calc(100% - 20px);
   width: 100px;
   position: absolute;
-  left: 60px;
+  left: 80px;
 }
 
 .noose {
@@ -73,6 +79,7 @@
   left: 155px;
   transform: rotate(12deg);
   transform-origin: top;
+  animation: rock 1s alternate infinite ease-in-out;
 }
 
 .rightleg {
@@ -85,6 +92,7 @@
   left: 157px;
   transform: rotate(-12deg);
   transform-origin: top;
+  animation: rock 1s alternate infinite ease-in-out;
 }
 
 .leftarm {
