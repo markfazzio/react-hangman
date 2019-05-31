@@ -15,7 +15,7 @@ class Header extends Component {
             <div className="game__nav container-fluid">
                 <div className="row">
                     <div className="col-md-8 text-left">
-                        <h4>Wrong Answers: <span className="text-warning">{numWrong}/{maxWrong}</span></h4>
+                        <h4>Wrong Guesses: <span className="text-warning">{numWrong}/{maxWrong}</span></h4>
                     </div>
                     <div className="col-md-4 text-right">
                         <button className="btn btn-success" onClick={reset}>

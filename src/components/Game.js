@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classnames from 'classnames';
 import { randomWord } from '../utils/randomWord';
 import Header from './Header';
-import StickMan from "./StickMan";
+import Hangman from "./Hangman";
 import Word from './Word';
 
 import './Game.css';
@@ -104,8 +104,9 @@ class Game extends Component {
 
     const { numWrong, answer } = this.state;
     const { maxWrong } = this.props;
-    const isWinner = this.guessedWord().join("") === answer;
     const gameOver = numWrong >= maxWrong;
+    const isWinner = this.guessedWord().join("") === answer;
+    const isLoser = gameOver && !isWinner;
     
     return (
       <div className="game">
@@ -121,7 +122,10 @@ class Game extends Component {
                     <h1>React Hangman</h1>
                     <p>Guess a letter!</p>
                 </div>
-                <StickMan numWrong={numWrong} />
+                <Hangman 
+                  numWrong={numWrong} 
+                  isLoser={isLoser}
+                />
                 <Word 
                   gameOver={gameOver}
                   isWinner={isWinner}
