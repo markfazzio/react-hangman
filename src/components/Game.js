@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from './Header';
 import StickMan from "./StickMan";
 import Word from './Word';
 
@@ -63,12 +64,13 @@ class Game extends Component {
 
     return (
       <div className="game">
+        <Header numWrong={numWrong} />
         <div className="game__container container">
           <div className="row">
             <div className="col-sm-12">
                 <div className="game__instructions">
                     <h1>React Hangman</h1>
-                    <p>Wrong Guesses: {numWrong}</p>
+                    <p>Guess a letter!</p>
                 </div>
                 <StickMan numWrong={numWrong} />
                 <Word guessedWord={this.guessedWord()} />
